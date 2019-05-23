@@ -4,6 +4,15 @@ var createReactClass = require('create-react-class');
 module.exports = createReactClass({
   render: function() {
     console.log('props in legdger', this.props);
-    return <div>this is where I will display ledger</div>;
+    const { ledger } = this.props;
+    return (
+      <div>
+        <ul>
+          {ledger.map((record, i) => (
+            <li key={i}>{record.item}</li>
+          ))}
+        </ul>
+      </div>
+    );
   }
 });

@@ -3,4 +3,4 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var App = require('./App.jsx');
 
-ReactDOM.render(React.createElement(App), document);
+ReactDOM.hydrate(React.createElement(App));

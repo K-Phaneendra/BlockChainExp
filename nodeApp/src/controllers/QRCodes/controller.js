@@ -77,20 +77,24 @@ export const updateQR = (req, res, next) => {
 export const openQR = (req, res, next) => {
   const displayObj = {};
 
-  QRCodes.findOne({ name: req.params.qrName }).exec((err, qrcode) => {
-    if (err) {
-      displayObj.error = true;
-      displayObj.message = 'Error Fetching QR Code';
-    } else {
-      displayObj.error = false;
-      displayObj.QRCode = qrcode;
-    }
+  const foundQRCode = new Promise(resolve => {
+    QRCodes.findOne({ name: req.params.qrName }).exec((err, qrcode) => {
+      if (err) {
+        displayObj.error = true;
+        displayObj.message = 'Error Fetching QR Code';
+        resolve(displayObj);
+      } else {
+        displayObj.error = false;
+        displayObj.QRCode = qrcode;
+        resolve(displayObj);
+      }
+    });
   });
 
-  console.log('displayObj', displayObj);
+  foundQRCode.then(data => {
+    console.log('displayObj', data);
 
-  const html = ReactDOMServer.renderToString(
-    React.createElement(App, displayObj)
-  );
-  res.send(html);
+    const html = ReactDOMServer.renderToString(React.createElement(App, data));
+    res.send(html);
+  });
 };
