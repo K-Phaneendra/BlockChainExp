@@ -12,5 +12,7 @@ export default routes => {
   app.use(queryErrorHandler());
   app.use(bodyErrorHandler());
 
+  // serve static files present in folder ../public
+  app.use(express.static('public'));
   return app;
 };

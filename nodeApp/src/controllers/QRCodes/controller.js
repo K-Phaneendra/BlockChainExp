@@ -1,3 +1,8 @@
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+
+const App = require('../../../public/React/App.jsx');
+
 import QRCodes from '../../models/QRCodes';
 import { SEND } from '../response';
 
@@ -53,24 +58,39 @@ export const updateQR = (req, res, next) => {
   });
 };
 
-export const getQrByName = (req, res, next) => {
-  QRCodes.findOne({ name: req.params.qrName }).exec((err, qrcode) => {
-    if (err) {
-      SEND(res, true, {
-        QRCodes: [],
-        error: err,
-        message: 'Error Fetching QR Code'
-      });
-    } else {
-      SEND(res, false, {
-        QRCode: qrcode
-      });
-    }
-  });
-};
+// export const getQrByName = (req, res, next) => {
+//   QRCodes.findOne({ name: req.params.qrName }).exec((err, qrcode) => {
+//     if (err) {
+//       SEND(res, true, {
+//         QRCodes: [],
+//         error: err,
+//         message: 'Error Fetching QR Code'
+//       });
+//     } else {
+//       SEND(res, false, {
+//         QRCode: qrcode
+//       });
+//     }
+//   });
+// };
 
 export const openQR = (req, res, next) => {
-  res.send(
-    'should send a react app where user can see the scanned qr details / ledger'
+  const displayObj = {};
+
+  QRCodes.findOne({ name: req.params.qrName }).exec((err, qrcode) => {
+    if (err) {
+      displayObj.error = true;
+      displayObj.message = 'Error Fetching QR Code';
+    } else {
+      displayObj.error = false;
+      displayObj.QRCode = qrcode;
+    }
+  });
+
+  console.log('displayObj', displayObj);
+
+  const html = ReactDOMServer.renderToString(
+    React.createElement(App, displayObj)
   );
+  res.send(html);
 };
