@@ -6,6 +6,7 @@ import {
 import App from '../../App';
 import TestScreen from '../screens/TestScreen';
 import LandingScreen from '../screens/LandingScreen';
+import ManufacturingUnit from '../screens/ManufacturingUnit/ManufacturingUnit';
 
 class Routes extends React.Component {
   render() {
@@ -21,6 +22,7 @@ class Routes extends React.Component {
         <Route path="/" component={App}>
           <IndexRoute component={LandingScreen} />
           <Route path="/testScreen" name="testScreen" component={TestScreen} />
+          <Route path="/manufacturingUnit" name="manufacturingUnit" component={ManufacturingUnit} />
         </Route>
       </Router>
     );

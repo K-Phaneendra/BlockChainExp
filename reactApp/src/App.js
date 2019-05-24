@@ -5,6 +5,7 @@ import './App.css';
 class App extends Component {
   render() {
     const { children } = this.props;
+    console.log('props in app', this.props);
     return (
       <div className="App">
         <header className="App-header">

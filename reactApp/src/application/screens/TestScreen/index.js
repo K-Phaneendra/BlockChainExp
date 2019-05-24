@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { checkRedux, sampleAPICall } from '../../actions/testAction';
-import ReactLoader from '../../components.js/ReactLoader';
+import ReactLoader from '../../components/ReactLoader';
 
 class TestScreen extends Component {
   check = () => {
