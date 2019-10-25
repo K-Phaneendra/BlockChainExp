@@ -22,6 +22,21 @@ export const fetchAll = (req, res, next) => {
   });
 };
 
+export const checkIfNameExists = (req, res, next) => {
+  QRCodes.findOne({ name: req.params.qrName }).exec((err, qrcode) => {
+    if (err) {
+      SEND(res, true, {
+        error: err,
+        message: 'Error Reading QR Codes'
+      });
+    } else {
+      SEND(res, false, {
+        nameExists: qrcode !== null ? true : false
+      });
+    }
+  });
+};
+
 export const createQR = (req, res, next) => {
   QRCodes.create(req.body).exec((err, created) => {
     if (err) {

@@ -23,9 +23,9 @@ class ManufacturingUnit extends Component {
         <FabricRighPanel
           show={openQRPanel}
           onDismiss={this.toggleCreateQRPanel}
-          heading="Create QR Wizard"
+          // heading="Create QR Wizard"
         >
-          <CreateQR />
+          <CreateQR onDismiss={this.toggleCreateQRPanel} />
         </FabricRighPanel>
       </Customizer>
     );
